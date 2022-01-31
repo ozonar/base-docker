@@ -1,0 +1,19 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "808:80"
+      - "4438:443"
+    volumes:
+      - ./hosts:/etc/nginx/conf.d
+      - ./www:/var/www
+      - ./logs:/var/log/nginx
+    volumes_from:
+      - php
+    links:
+      - php
+  php:
+    image: php:7.2-fpm
+    volumes:
+      - ./www:/var/www
